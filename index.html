@@ -1,70 +1,105 @@
 <!doctype html>
 <html manifest=/cache.manifest itemscope itemtype="http://schema.org/CreativeWork">
-  <head>
-    <title>Clearly</title>
-    <meta charset="utf-8" />
 
-    <meta itemprop="name" content="Clearly - beautiful and lightweight editor that puts focus on organization, works inside a browser and comes with full source code (GPLv3+).">
-    <meta itemprop="description" content="Beautiful and lightweight editor that puts focus on organization, works inside a browser and comes with full source code (GPLv3+).">
-    <meta name="description" content="Beautiful and lightweight editor that puts focus on organization, works inside a browser and comes with full source code (GPLv3+).">
-    <meta itemprop="image" content="http://clearly.pl/thumb.png">
+<head>
+  <title>Clearly</title>
+  <meta charset="utf-8" />
 
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta itemprop="name" content="Clearly - beautiful and lightweight editor that puts focus on organization, works inside a browser and comes with full source code (GPLv3+).">
+  <meta itemprop="description" content="Beautiful and lightweight editor that puts focus on organization, works inside a browser and comes with full source code (GPLv3+).">
+  <meta name="description" content="Beautiful and lightweight editor that puts focus on organization, works inside a browser and comes with full source code (GPLv3+).">
+  <meta itemprop="image" content="http://clearly.pl/thumb.png">
 
-    <link rel="apple-touch-icon-precomposed" href="/touchicon.png">
-    <link rel="icon" href="/favicon.png">
-    <!--[if IE]><link rel="shortcut icon" href="/favicon.ico"><![endif]-->
-    <meta name="msapplication-TileColor" content="#EEEEEE">
-    <meta name="msapplication-TileImage" content="/tileicon.png">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <script src="/jquery.js"></script>
-    <script src="/clearly.js"></script>
-    <script type="text/x-mathjax-config">
+  <link rel="apple-touch-icon-precomposed" href="/touchicon.png">
+  <link rel="icon" href="/favicon.png">
+  <!--[if IE]><link rel="shortcut icon" href="/favicon.ico"><![endif]-->
+  <meta name="msapplication-TileColor" content="#EEEEEE">
+  <meta name="msapplication-TileImage" content="/tileicon.png">
+
+  <script src="/jquery.js"></script>
+  <script src="/clearly.js"></script>
+  <script type="text/x-mathjax-config">
      MathJax.Hub.Config({
        tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]},
        skipStartupTypeset: true
      });
     </script>
-    <script src="/MathJax/MathJax.js?config=TeX-MML-AM_HTMLorMML"></script>
-    <script src="/clearly.math.js"></script>
-    <script>
-      $(document).ready(function() {
-        $.extend(window, $Clearly);
-        $Clearly = window;
-        $Clearly.load();
-      });
-    </script>
-    <link href="/style.css" rel="stylesheet" type="text/css">
-    <script type="text/javascript">
+  <script src="/MathJax/MathJax.js?config=TeX-MML-AM_HTMLorMML"></script>
+  <script src="/clearly.math.js"></script>
+  <script>
+    $(document).ready(function () {
+      $.extend(window, $Clearly);
+      $Clearly = window;
+      $Clearly.load();
+    });
+  </script>
+  <style>
+    .popup {
+      text-shadow: 0 0 2px white;
+    }
+  </style>
+  <script>
+    // Show a link to Cleary.eu shop
+    document.addEventListener('DOMContentLoaded', function () {
+      if (localStorage.getItem('shown clearly.eu') == null) {
+        let msg = document.createElement('div');
+        msg.style.position = 'absolute';
+        msg.style.top = '10px';
+        msg.style.right = '10px';
+        msg.style.width = '300px';
+        msg.style.background = 'rgba(255, 178, 178, 0.8)';
+        msg.style.padding = '10px';
+        msg.style.borderRadius = '5px';
+        msg.style.color = '#222';
+        msg.classList.add('popup');
+        msg.innerHTML = "Are you looking for a health supplement shop? Check out <a href='https://www.clearly.eu/'>clearly.eu</a>!";
+        let close = document.createElement('button');
+        close.innerHTML = '&times;';
+        close.onclick = function () {
+          msg.style.display = 'none';
+          localStorage.setItem('shown clearly.eu', 'true');
+        };
+        close.style.borderRadius = '100px';
+        close.style.fontSize = '20px';
+        close.style.border = 'none';
+        close.style.background = 'rgba(0, 0, 0, 1)';
+        close.style.color = 'white';
+        close.style.height = '40px';
+        close.style.width = '40px';
+        close.style.cursor = 'pointer';
+        close.style.position = 'absolute';
+        close.style.bottom = '-20px';
+        close.style.right = '5px';
 
-      var _gaq = _gaq || [];
-      _gaq.push(['_setAccount', 'UA-31222352-1']);
-      _gaq.push(['_trackPageview']);
+        msg.appendChild(close);
+        document.body.appendChild(msg);
+      }
+    });
+  </script>
+  <link href="/style.css" rel="stylesheet" type="text/css">
+  <script type="text/javascript">
 
-      (function() {
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-31222352-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function () {
       var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
       ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
       var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-      })();
+    })();
 
-    </script>
-    <script type="text/javascript">
-      (function() {
-      var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
-      po.src = 'https://apis.google.com/js/plusone.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
-      })();
-    </script>
-  </head>
-  <body>
-    <h1>Empty document</h1>
-    <p>Are you lost? This is <span class=fancy>Clearly</span> - <em>structured text editor</em> that uses your browser to manipulate & store documents.</p>
-    <p>To get hang of it go and <a href="/tutorial/">play with the tutorial</a>.</p>
-    <p>List of recent changes is located on <a href="https://github.com/mafik/Clearly/commits/gh-pages/">this page</a>.</p>
-    <section>
-      <g:plusone annotation="inline" href="http://clearly.pl/"></g:plusone>
-    </section>
-  </body>
+  </script>
+</head>
+
+<body>
+  <h1>Empty document</h1>
+  <p>Are you lost? This is <span class=fancy>Clearly</span> - <em>structured text editor</em> that uses your browser to manipulate & store documents.</p>
+  <p>To get hang of it go and <a href="/tutorial/">play with the tutorial</a>.</p>
+  <p>List of recent changes is located on <a href="https://github.com/mafik/Clearly/commits/gh-pages/">this page</a>.</p>
+</body>
+
 </html>
-
