@@ -1,101 +1,109 @@
 @font-face {
-  font-family: 'Clear Sans';
-  font-style: normal;
-  font-weight: 400;
-  src: local('Clear Sans'), local('ClearSans-Regular'), url("/ClearSans-Regular.woff") format('woff');
+    font-family: "Clear Sans";
+    font-style: normal;
+    font-weight: 400;
+    src:
+        local("Clear Sans"),
+        local("ClearSans-Regular"),
+        url("/ClearSans-Regular.woff") format("woff");
 }
 @font-face {
-  font-family: 'Clear Sans';
-  font-style: normal;
-  font-weight: 700;
-  src: local('Clear Sans Bold'), local('ClearSans-Bold'), url("/ClearSans-Bold.woff") format('woff');
+    font-family: "Clear Sans";
+    font-style: normal;
+    font-weight: 700;
+    src:
+        local("Clear Sans Bold"),
+        local("ClearSans-Bold"),
+        url("/ClearSans-Bold.woff") format("woff");
 }
 @font-face {
-  font-family: 'Clear Sans';
-  font-style: italic;
-  font-weight: 400;
-  src: local('Clear Sans Italic'), local('ClearSans-Italic'), url("/ClearSans-Italic.woff") format('woff');
+    font-family: "Clear Sans";
+    font-style: italic;
+    font-weight: 400;
+    src:
+        local("Clear Sans Italic"),
+        local("ClearSans-Italic"),
+        url("/ClearSans-Italic.woff") format("woff");
 }
 @font-face {
-  font-family: 'Clear Sans';
-  font-style: italic;
-  font-weight: 700;
-  src: local('Clear Sans Bold Italic'), local('ClearSans-BoldItalic'), url("/ClearSans-BoldItalic.woff") format('woff');
+    font-family: "Clear Sans";
+    font-style: italic;
+    font-weight: 700;
+    src:
+        local("Clear Sans Bold Italic"),
+        local("ClearSans-BoldItalic"),
+        url("/ClearSans-BoldItalic.woff") format("woff");
 }
 @font-face {
-  font-family: Dosis;
-  font-style: normal;
-  font-weight: 400;
-  src: local('Dosis Regular'), local('Dosis-Regular'), url("/Dosis-Regular.woff") format('woff');
+    font-family: Dosis;
+    font-style: normal;
+    font-weight: 400;
+    src:
+        local("Dosis Regular"),
+        local("Dosis-Regular"),
+        url("/Dosis-Regular.woff") format("woff");
 }
 @font-face {
-  font-family: Dosis;
-  font-style: normal;
-  font-weight: 700;
-  src: local('Dosis Bold'), local('Dosis-Bold'), url("/Dosis-Bold.woff") format('woff');
+    font-family: Dosis;
+    font-style: normal;
+    font-weight: 700;
+    src:
+        local("Dosis Bold"),
+        local("Dosis-Bold"),
+        url("/Dosis-Bold.woff") format("woff");
 }
 @font-face {
-  font-family: 'Source Code Pro';
-  font-style: normal;
-  font-weight: 400;
-  src: local('Source Code Pro'), local('SourceCodePro-Regular'), url("/SourceCodePro-Regular.woff") format('woff');
+    font-family: "Source Code Pro";
+    font-style: normal;
+    font-weight: 400;
+    src:
+        local("Source Code Pro"),
+        local("SourceCodePro-Regular"),
+        url("/SourceCodePro-Regular.woff") format("woff");
 }
 @font-face {
-  font-family: 'Source Code Pro';
-  font-style: normal;
-  font-weight: 700;
-  src: local('Source Code Pro Bold'), local('SourceCodePro-Bold'), url("/SourceCodePro-Bold.woff") format('woff');
+    font-family: "Source Code Pro";
+    font-style: normal;
+    font-weight: 700;
+    src:
+        local("Source Code Pro Bold"),
+        local("SourceCodePro-Bold"),
+        url("/SourceCodePro-Bold.woff") format("woff");
 }
 body {
-  margin: 1em;
+    margin: 1em;
 }
 html {
-  font: 16px 'Clear Sans', sans-serif;
-  color: #556;
-  background: #eee;
-  background-image: url("/bg.png");
-  text-rendering: optimizeLegibility;
-  -webkit-font-feature-settings: "liga=1";
-  -moz-font-feature-settings: "liga=1";
-  -ms-font-feature-settings: "liga=1";
-  -o-font-feature-settings: "liga=1";
-  font-feature-settings: "liga=1";
-  -webkit-font-feature-settings: "kern=1";
-  -moz-font-feature-settings: "kern=1";
-  -ms-font-feature-settings: "kern=1";
-  -o-font-feature-settings: "kern=1";
-  font-feature-settings: "kern=1";
-  -webkit-font-feature-settings: "frac=1";
-  -moz-font-feature-settings: "frac=1";
-  -ms-font-feature-settings: "frac=1";
-  -o-font-feature-settings: "frac=1";
-  font-feature-settings: "frac=1";
+    font:
+        16px "Clear Sans",
+        sans-serif;
+    color: #556;
+    background: #eee;
+    background-image: url("/bg.png");
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "liga", "kern";
 }
 .active {
-  border-color: #000;
-  background: #fff;
-  -webkit-transform: translateX(10px);
-  -moz-transform: translateX(10px);
-  -ms-transform: translateX(10px);
-  -o-transform: translateX(10px);
-  transform: translateX(10px);
-  color: #223;
-  box-shadow: 0 0 5px #bbb;
+    border-color: #000;
+    background: #fff;
+    transform: translateX(10px);
+    color: #223;
+    box-shadow: 0 0 5px #bbb;
 }
-[contenteditable=true] {
-  border-color: #f00 !important;
-  box-shadow: 0 0 5px #f00;
+[contenteditable="true"] {
+    border-color: #f00 !important;
+    box-shadow: 0 0 5px #f00;
 }
 .compact {
-  max-height: 8em;
-  overflow: hidden;
-  border-bottom: 1px solid #fff;
-  border-top: 1px solid #ccc;
-  font-size: 10px;
-  box-shadow: inset 0 0 5px #ccc;
+    max-height: 8em;
+    overflow: hidden;
+    border-bottom: 1px solid #fff;
+    border-top: 1px solid #ccc;
+    font-size: 10px;
+    box-shadow: inset 0 0 5px #ccc;
 }
 .compact * {
-  font-size: inherit !important;
+    font-size: inherit !important;
 }
 section,
 p,
@@ -111,8 +119,11 @@ h5,
 h6,
 li,
 hr {
-  transition: -webkit-transform 0.3s, border-color 0.3s, background 0.3s, font-size 0.3s;
-  transition: transform 0.3s, border-color 0.3s, background 0.3s, font-size 0.3s;
+    transition:
+        transform 0.3s,
+        border-color 0.3s,
+        background 0.3s,
+        font-size 0.3s;
 }
 section,
 p,
@@ -126,28 +137,28 @@ h3,
 h4,
 h5,
 h6 {
-  margin: 0.4em 0;
-  padding: 0.1em;
-  min-height: 1.2em;
+    margin: 0.4em 0;
+    padding: 0.1em;
+    min-height: 1.2em;
 }
 p,
 ul,
 ol,
 blockquote,
 pre {
-  padding: 0.5em;
-  min-height: 1.5em;
+    padding: 0.5em;
+    min-height: 1.5em;
 }
 p,
 ul,
 ol,
 blockquote {
-  max-width: 40em;
-  line-height: 1.5em;
+    max-width: 40em;
+    line-height: 1.5em;
 }
 code,
 pre {
-  font-family: "Source Code Pro", courier;
+    font-family: "Source Code Pro", courier;
 }
 h1,
 h2,
@@ -156,94 +167,94 @@ h4,
 h5,
 h6,
 .fancy {
-  font-family: Dosis, sans-serif;
-  font-weight: normal;
+    font-family: Dosis, sans-serif;
+    font-weight: normal;
 }
 h1,
 .fancy {
-  color: #f07c39 !important;
+    color: #f07c39 !important;
 }
 h1 {
-  font-size: 5em;
+    font-size: 5em;
 }
 h2 {
-  font-size: 3em;
-  color: #efbb4b !important;
+    font-size: 3em;
+    color: #efbb4b !important;
 }
 h3 {
-  font-size: 2.5em;
-  color: #00a538 !important;
+    font-size: 2.5em;
+    color: #00a538 !important;
 }
 h4 {
-  font-size: 2em;
-  color: #0062c5 !important;
+    font-size: 2em;
+    color: #0062c5 !important;
 }
 h5 {
-  font-size: 1.5em;
-  color: #b400c5 !important;
+    font-size: 1.5em;
+    color: #b400c5 !important;
 }
 h6 {
-  font-size: 1.3em;
-  color: #a50003 !important;
+    font-size: 1.3em;
+    color: #a50003 !important;
 }
 section {
-  padding-left: 0.8em;
-  border-left: 5px solid #ccc;
+    padding-left: 0.8em;
+    border-left: 5px solid #ccc;
 }
 hr {
-  border: 2.5px solid #ccc;
-  margin: 0;
+    border: 2.5px solid #ccc;
+    margin: 0;
 }
 em {
-  font-style: inherit;
-  font-weight: bold;
+    font-style: inherit;
+    font-weight: bold;
 }
 a {
-  color: #0098c4;
+    color: #0098c4;
 }
 table {
-  margin: 0.5em;
+    margin: 0.5em;
 }
 blockquote {
-  font-style: italic;
+    font-style: italic;
 }
 blockquote:after {
-  content: ' ❞';
+    content: " ❞";
 }
 blockquote:before {
-  content: '❝ ';
+    content: "❝ ";
 }
 ol,
 ul {
-  padding-left: 2em;
+    padding-left: 2em;
 }
 .todo {
-  color: #924332;
+    color: #924332;
 }
 .todo:before {
-  content: 'TODO: ';
+    content: "TODO: ";
 }
 .cancelled {
-  color: #c1c167;
+    color: #c1c167;
 }
 .cancelled:before {
-  content: 'CANCELLED: ';
+    content: "CANCELLED: ";
 }
 .done {
-  color: #74a44f;
+    color: #74a44f;
 }
 .done:before {
-  content: 'DONE: ';
+    content: "DONE: ";
 }
 .working {
-  color: #e43847;
+    color: #e43847;
 }
 .working:before {
-  content: 'WORKING ON: ';
+    content: "WORKING ON: ";
 }
 .todo:before,
 .cancelled:before,
 .done:before,
 .working:before {
-  font-weight: bold;
+    font-weight: bold;
 }
