@@ -556,7 +556,7 @@ $Clearly.smartNew = function () {
         c = a.contents();
       }
     }
-    if (a.text().length == 0) {
+    if (a.html().length == 0) {
       $Clearly.deleteActive(false);
     }
     // window.getSelection().removeAllRanges();

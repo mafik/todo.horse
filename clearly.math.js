@@ -17,12 +17,22 @@
       typeset: false,
     },
     loader: {
-      load: ["input/tex", "input/asciimath", "output/chtml", "ui/menu"],
+      load: ["input/asciimath"],
+    },
+    options: {
+      menuOptions: {
+        settings: {
+          assistiveMml: false,
+          texHints: false,
+          collapsible: false,
+          explorer: false,
+        },
+      },
     },
   };
 
   var script = document.createElement("script");
-  script.src = "/mathjax/tex-chtml.js";
+  script.src = "/mathjax/tex-svg.js";
   script.async = true;
   document.head.appendChild(script);
 
