@@ -1,9 +1,6 @@
-/*
-  This file is part of Clearly provides bindings to MathJax. This file
-  is subject to GPLv3 (see http://www.gnu.org/licenses/).
-
-  Authors: Marek Rogalski
- */
+// This file is a part of Clearly and provides bindings to MathJax.
+// SPDX-License-Identifier: AGPL-3.0-or-later
+// SPDX-FileCopyrightText: Copyright (C) 2012-2024 Marek Rogalski
 
 (function () {
   window.MathJax = {
