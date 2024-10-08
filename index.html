@@ -29,49 +29,6 @@
       $Clearly.load();
     });
   </script>
-  <style>
-    .popup {
-      text-shadow: 0 0 2px white;
-    }
-  </style>
-  <script>
-    // Show a link to Cleary.eu shop
-    document.addEventListener('DOMContentLoaded', function () {
-      if (localStorage.getItem('shown clearly.eu') == null) {
-        let msg = document.createElement('div');
-        msg.style.position = 'absolute';
-        msg.style.top = '10px';
-        msg.style.right = '10px';
-        msg.style.width = '300px';
-        msg.style.background = 'rgba(255, 178, 178, 0.8)';
-        msg.style.padding = '10px';
-        msg.style.borderRadius = '5px';
-        msg.style.color = '#222';
-        msg.classList.add('popup');
-        msg.innerHTML = "Are you looking for a health supplement shop? Check out <a href='https://www.clearly.eu/'>clearly.eu</a>!";
-        let close = document.createElement('button');
-        close.innerHTML = '&times;';
-        close.onclick = function () {
-          msg.style.display = 'none';
-          localStorage.setItem('shown clearly.eu', 'true');
-        };
-        close.style.borderRadius = '100px';
-        close.style.fontSize = '20px';
-        close.style.border = 'none';
-        close.style.background = 'rgba(0, 0, 0, 1)';
-        close.style.color = 'white';
-        close.style.height = '40px';
-        close.style.width = '40px';
-        close.style.cursor = 'pointer';
-        close.style.position = 'absolute';
-        close.style.bottom = '-20px';
-        close.style.right = '5px';
-
-        msg.appendChild(close);
-        document.body.appendChild(msg);
-      }
-    });
-  </script>
   <link href="/style.css" rel="stylesheet" type="text/css">
   <script type="text/javascript">
 
