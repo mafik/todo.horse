@@ -20,13 +20,6 @@
 
     <script src="/jquery.js"></script>
     <script src="/clearly.js"></script>
-    <script type="text/x-mathjax-config">
-     MathJax.Hub.Config({
-       tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]},
-       skipStartupTypeset: true
-     });
-    </script>
-    <script src="/MathJax/MathJax.js?config=TeX-MML-AM_HTMLorMML"></script>
     <script src="/clearly.math.js"></script>
     <script>
       $(document).ready(function() {
@@ -65,13 +58,13 @@
       <h2>Navigation</h2>
       <p>The document is actually o tree (mathematical tree of course) of HTML elements - sections, headers, paragraphs and a few others.
 	To make work easier one element is always active - it has brighter background and is slightly indented.</p>
-      <p>When you click on an element it gets activated. Watch out not to 
+      <p>When you click on an element it gets activated. Watch out not to
 	click it twice though - it would start <code>edit mode</code> (indicated by red glow around the element). You can leave edit
 	mode with <code>[Escape]</code> or by clicking outside currently edited element.
       <p>You can <em>use arrows to navigate</em> (<code>[&larr;] [&rarr;] [&uarr;] [&darr;]</code>) between next/previous elements
 	and to ascend/descent in their hierarchy. This way of navigating through text is called <em>tree navigation</em>. Try it now. This is main way of browsing big documents and you will very quickly start to use it intuitively.</p>
-      <p>If you know how to navigate inside the webpage as it was a tree try holding down 
-	<code>[Ctrl]</code> and press <code>[&uarr;]</code>/<code>[&darr;]</code>. This way you navigate i a way very similar to tree navigation but you can walk across elements at 
+      <p>If you know how to navigate inside the webpage as it was a tree try holding down
+	<code>[Ctrl]</code> and press <code>[&uarr;]</code>/<code>[&darr;]</code>. This way you navigate i a way very similar to tree navigation but you can walk across elements at
 	different nesting levels. Just as if they were placed one after another. This is why it is
 	called <em>list navigation</em>.</p>
       <p><code>[Home]</code> and <code>[End]</code> keys will move you to the first and last element in the current section. Holding down <code>[Ctrl]</code> will cause you to move to start and end of the document.</p>
@@ -217,4 +210,3 @@ for(var i = 0; i &lt; 10; ++i) {
     </section>
   </body>
 </html>
-
