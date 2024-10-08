@@ -1,4 +1,4 @@
-// This file is a part of Clearly and provides bindings to MathJax.
+// This file is a part of todo.horse and provides bindings to MathJax.
 // SPDX-License-Identifier: AGPL-3.0-or-later
 // SPDX-FileCopyrightText: Copyright (C) 2012-2024 Marek Rogalski
 
@@ -36,13 +36,13 @@
   script.async = true;
   document.head.appendChild(script);
 
-  $Clearly.typesetMath = function () {
-    MathJax.typeset($Clearly.active);
-    $Clearly.save();
+  $TODO.typesetMath = function () {
+    MathJax.typeset($TODO.active);
+    $TODO.save();
   };
 
-  $Clearly.nav.bind(
-    { ctrl: false, shift: false, code: $Clearly.Keycodes["M"] },
-    $Clearly.typesetMath,
+  $TODO.nav.bind(
+    { ctrl: false, shift: false, code: $TODO.Keycodes["M"] },
+    $TODO.typesetMath,
   );
 })();

@@ -2,13 +2,23 @@
 <html manifest=/cache.manifest itemscope itemtype="http://schema.org/CreativeWork">
 
 <head>
-  <title>Clearly</title>
   <meta charset="utf-8" />
+  <title>todo.horse</title>
+  <meta property="og:title" content="todo.horse">
+  <meta property="og:site_name" content="todo.horse">
 
-  <meta itemprop="name" content="Clearly - beautiful and lightweight editor that puts focus on organization, works inside a browser and comes with full source code (GPLv3+).">
-  <meta itemprop="description" content="Beautiful and lightweight editor that puts focus on organization, works inside a browser and comes with full source code (GPLv3+).">
-  <meta name="description" content="Beautiful and lightweight editor that puts focus on organization, works inside a browser and comes with full source code (GPLv3+).">
-  <meta itemprop="image" content="http://clearly.pl/thumb.png">
+  <meta itemprop="name" content="todo.horse - beautiful and lightweight editor that puts focus on organization, works inside a browser and comes with full source code (AGPLv3+).">
+  <meta itemprop="description" content="Beautiful and lightweight editor that puts focus on organization, works inside a browser and comes with full source code (AGPLv3+).">
+  <meta name="description" content="Beautiful and lightweight editor that puts focus on organization, works inside a browser and comes with full source code (AGPLv3+).">
+  <meta property="og:description" content="Beautiful and lightweight editor that puts focus on organization, works inside a browser and comes with full source code (AGPLv3+).">
+
+  <meta itemprop="image" content="https://todo.horse/thumbnail.webp">
+  <meta property="og:image" content="https://todo.horse/thumbnail.webp">
+  <meta name="twitter:card" content="https://todo.horse/thumbnail.webp">
+  <meta name="twitter:image:alt" content="todo.horse - Free as in Freedom">
+
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://todo.horse/">
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -19,13 +29,13 @@
   <meta name="msapplication-TileImage" content="/tileicon.png">
 
   <script src="/jquery.js"></script>
-  <script src="/clearly.js"></script>
-  <script src="/clearly.math.js"></script>
+  <script src="/todo.js"></script>
+  <script src="/todo.math.js"></script>
   <script>
     $(document).ready(function () {
-      $.extend(window, $Clearly);
-      $Clearly = window;
-      $Clearly.load();
+      $.extend(window, $TODO);
+      $TODO = window;
+      $TODO.load();
     });
   </script>
   <link href="/style.css" rel="stylesheet" type="text/css">
@@ -45,10 +55,10 @@
 </head>
 
 <body>
-  <h1>Empty document</h1>
-  <p>Are you lost? This is <span class=fancy>Clearly</span> - <em>structured text editor</em> that uses your browser to manipulate & store documents.</p>
+  <h1>Howdy, Partner!</h1>
+  <p>Are you lost? This is <span class=fancy>todo.horse</span> - a <em>hierarchical text editor</em> that uses your browser to manipulate & store documents.</p>
   <p>To get hang of it go and <a href="/tutorial/">play with the tutorial</a>.</p>
-  <p>List of recent changes is located on <a href="https://github.com/mafik/Clearly/commits/gh-pages/">this page</a>.</p>
+  <p>List of recent changes is located on <a href="https://github.com/mafik/todo.horse/commits/main/">this page</a>.</p>
 </body>
 
 </html>

@@ -2,8 +2,8 @@ CACHE MANIFEST
 # rev 7
 CACHE:
 /bg.png
-/clearly.js
-/clearly.math.js
+/todo.js
+/todo.math.js
 /favicon.png
 /tileicon.png
 /touchicon.png

@@ -1,5 +1,5 @@
 /*
-  Clearly is a programmable text editor implemented as a modular set of
+  todo.horse is a programmable text editor implemented as a modular set of
   javascript libraries.
 
   Copyright (C) 2012-2024 Marek Rogalski
@@ -20,7 +20,7 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 // SPDX-FileCopyrightText: Copyright (C) 2012-2024 Marek Rogalski
 
-$Clearly = {
+$TODO = {
   selector:
     "h1, h2, h3, h4, h5, h6, section, p, blockquote, ul, ol, pre, hr, li",
   inhibitSelector: "a, button, input",
@@ -31,7 +31,7 @@ $Clearly = {
   install: {},
 };
 
-$Clearly.Keys = {
+$TODO.Keys = {
   8: "BACKSPACE",
   9: "TAB",
   13: "ENTER",
@@ -135,7 +135,7 @@ $Clearly.Keys = {
   222: "SINGLE QUOTE",
 };
 
-$Clearly.Keycodes = {
+$TODO.Keycodes = {
   BACKSPACE: [8],
   TAB: [9],
   ENTER: [13],
@@ -236,10 +236,10 @@ $Clearly.Keycodes = {
   "SINGLE QUOTE": [222],
 };
 
-$Clearly.Mode = function (name) {
+$TODO.Mode = function (name) {
   this.name = name;
 };
-$Clearly.Mode.prototype.bind = function (o, f) {
+$TODO.Mode.prototype.bind = function (o, f) {
   var end = this,
     queue = ["ctrl", "shift", "meta", "alt"];
   for (var i = 0; i < queue.length; ++i) {
@@ -252,14 +252,14 @@ $Clearly.Mode.prototype.bind = function (o, f) {
   }
   end[o.code] = f;
 };
-$Clearly.Mode.prototype.start = function () {
-  $Clearly.on[this.name || this] = this;
+$TODO.Mode.prototype.start = function () {
+  $TODO.on[this.name || this] = this;
 };
-$Clearly.Mode.prototype.end = function () {
-  delete $Clearly.on[this.name || this];
+$TODO.Mode.prototype.end = function () {
+  delete $TODO.on[this.name || this];
 };
 
-$Clearly.SingleKeyMode = function () {
+$TODO.SingleKeyMode = function () {
   this.bind(
     { ctrl: false, alt: false, shift: false, meta: false, code: "27" },
     function () {
@@ -267,32 +267,32 @@ $Clearly.SingleKeyMode = function () {
     },
   );
 };
-$Clearly.SingleKeyMode.prototype.bind = function (o, f) {
+$TODO.SingleKeyMode.prototype.bind = function (o, f) {
   var f2 = function (event) {
     f(event);
     this.end();
   };
-  $Clearly.Mode.prototype.bind.call(this, o, f2);
+  $TODO.Mode.prototype.bind.call(this, o, f2);
 };
-$Clearly.SingleKeyMode.prototype.install = function (mode, options) {
+$TODO.SingleKeyMode.prototype.install = function (mode, options) {
   var self = this;
   mode.bind(options, function () {
-    self.old_on = $Clearly.on;
-    $Clearly.on = { "single key mode": this };
+    self.old_on = $TODO.on;
+    $TODO.on = { "single key mode": this };
   });
 };
-$Clearly.SingleKeyMode.prototype.end = function () {
-  $Clearly.on = this.old_on;
+$TODO.SingleKeyMode.prototype.end = function () {
+  $TODO.on = this.old_on;
   delete this.old_on;
 };
 
 /* // Przykład zastosowania
-var minimode = new $Clearly.SingleKeyMode();
+var minimode = new $TODO.SingleKeyMode();
 minimode.bind('?', question);
-$Clearly.nav.bind({code:'i'}, minimode.start);
+$TODO.nav.bind({code:'i'}, minimode.start);
 */
 
-$Clearly.keydown = function (event) {
+$TODO.keydown = function (event) {
   var end = [],
     queue = ["ctrl", "shift", "meta", "alt", "code"],
     i,
@@ -306,8 +306,8 @@ $Clearly.keydown = function (event) {
   };
 
   //console.log(JSON.stringify(data));
-  for (i in $Clearly.on) {
-    end.push($Clearly.on[i]);
+  for (i in $TODO.on) {
+    end.push($TODO.on[i]);
   }
   for (i = 0; end.length > 0 && i < queue.length; ++i) {
     var param = queue[i];
@@ -330,29 +330,29 @@ $Clearly.keydown = function (event) {
   return ret;
 };
 
-$Clearly.save = function () {
+$TODO.save = function () {
   localStorage[location.pathname] = $("body").html();
 };
 
-$Clearly.load = function () {
+$TODO.load = function () {
   if (!localStorage || !getSelection) {
     console.warn(
-      "localStorage and getSelection not found. Clearly will clearly fail.",
+      "localStorage and getSelection not found. todo.horse will fail.",
     );
   }
   if (localStorage[location.pathname]) {
     $("body").html(localStorage[location.pathname]);
-    $Clearly.active = $(".active");
+    $TODO.active = $(".active");
   } else {
-    $($Clearly.selector).first().activate();
+    $($TODO.selector).first().activate();
   }
 
   setTimeout(
-    "window.scroll(0, $Clearly.active.offset().top - parseInt(getComputedStyle($Clearly.active[0]).marginTop));",
+    "window.scroll(0, $TODO.active.offset().top - parseInt(getComputedStyle($TODO.active[0]).marginTop));",
     500,
   );
 
-  document.addEventListener("keydown", $Clearly.keydown);
+  document.addEventListener("keydown", $TODO.keydown);
 };
 
 $.fn.isReal = function () {
@@ -368,40 +368,40 @@ $.fn.isReal = function () {
 
 $.fn.activate = function () {
   if (this.length == 0) return this;
-  if ($Clearly.active) {
-    $Clearly.active.removeClass("active");
-    if ($Clearly.active.is('[class=""]')) {
-      $Clearly.active.removeAttr("class");
+  if ($TODO.active) {
+    $TODO.active.removeClass("active");
+    if ($TODO.active.is('[class=""]')) {
+      $TODO.active.removeAttr("class");
     }
-    $Clearly.activity.push($Clearly.active);
+    $TODO.activity.push($TODO.active);
   }
   this.addClass("active");
-  $Clearly.active = this;
+  $TODO.active = this;
   return this;
 };
 
-$Clearly.deleteActive = function (saveToKillRing) {
-  var next = $Clearly.active.next();
+$TODO.deleteActive = function (saveToKillRing) {
+  var next = $TODO.active.next();
   if (next.length == 0) {
-    next = $Clearly.active.prev();
+    next = $TODO.active.prev();
   }
   if (next.length == 0) {
-    next = $Clearly.active.parent($Clearly.selector);
+    next = $TODO.active.parent($TODO.selector);
   }
   if (next.length == 0) {
     next = $("body").append("<p >").children().last();
   }
 
-  $Clearly.active.remove();
+  $TODO.active.remove();
   if (saveToKillRing) {
-    $Clearly.killring.push($Clearly.active);
+    $TODO.killring.push($TODO.active);
   }
 
   next.activate().scrollShow();
 
   /*
-  while($Clearly.activity.length > 0) {
-    var candidate = $Clearly.activity.pop();
+  while($TODO.activity.length > 0) {
+    var candidate = $TODO.activity.pop();
     if(candidate.isReal()) {
       candidate.activate().scrollShow();
       break;
@@ -467,21 +467,21 @@ $Clearly.deleteActive = function (saveToKillRing) {
   };
 })();
 
-$Clearly.removeSection = function () {
-  $Clearly.active.parent().closest("section").children().unwrap();
-  $Clearly.active.scrollShow();
+$TODO.removeSection = function () {
+  $TODO.active.parent().closest("section").children().unwrap();
+  $TODO.active.scrollShow();
 };
 
-$Clearly.makeSection = function () {
-  var wrapped = $Clearly.active.closest(
+$TODO.makeSection = function () {
+  var wrapped = $TODO.active.closest(
     "h1, h2, h3, h4, h5, h6, p, pre, blockquote, ul, ol, section",
   );
   wrapped.wrap("<section></section>");
-  $Clearly.active.scrollShow();
+  $TODO.active.scrollShow();
 };
 
-$Clearly.changeTag = function (x) {
-  var a = $Clearly.active,
+$TODO.changeTag = function (x) {
+  var a = $TODO.active,
     b;
   a.wrapInner(x);
   b = a.children().first();
@@ -490,14 +490,14 @@ $Clearly.changeTag = function (x) {
   b.activate().unwrap();
 };
 
-$Clearly.smartNew = function () {
+$TODO.smartNew = function () {
   /**
    * smartNew is selection aware:
    * - p, blockqote, li, header: duplicate it, copy attributes
    * - section: make new paragraph inside
    * - list: add new list item
    */
-  var a = $Clearly.active,
+  var a = $TODO.active,
     inside,
     tag;
   if (a.is("section")) {
@@ -513,23 +513,23 @@ $Clearly.smartNew = function () {
     inside = false;
     tag = "<p></p>";
   }
-  var mark_todo = $Clearly.todo.isTask(a);
+  var mark_todo = $TODO.todo.isTask(a);
   if (inside) {
-    mark_todo = $Clearly.todo.isTask(a.children().last());
+    mark_todo = $TODO.todo.isTask(a.children().last());
     a.append(tag).children().last().activate();
   } else {
     a.after(tag).next().activate();
   }
   if (mark_todo) {
-    $Clearly.todo.first();
+    $TODO.todo.first();
   }
 };
 
 // Editor
 (function () {
   function end() {
-    // Don't invoke directly. $Clearly.active.blur() instead.
-    var a = $Clearly.active;
+    // Don't invoke directly. $TODO.active.blur() instead.
+    var a = $TODO.active;
     a.removeAttr("contenteditable");
     a.removeEmptyTextNodes();
     if (a.is("section")) {
@@ -557,16 +557,16 @@ $Clearly.smartNew = function () {
       }
     }
     if (a.html().length == 0) {
-      $Clearly.deleteActive(false);
+      $TODO.deleteActive(false);
     }
     // window.getSelection().removeAllRanges();
-    delete $Clearly.on.edit;
-    $Clearly.nav.start();
+    delete $TODO.on.edit;
+    $TODO.nav.start();
     return true;
   }
 
   function start() {
-    var a = $Clearly.active;
+    var a = $TODO.active;
 
     var ramax = document.createRange();
     ramax.selectNodeContents(a[0]);
@@ -624,55 +624,55 @@ $Clearly.smartNew = function () {
     }
 
     a.attr("contenteditable", "true").focus();
-    $Clearly.on.edit = $Clearly.edit;
-    if ($Clearly.on.nav) {
-      $Clearly.on.nav.end();
+    $TODO.on.edit = $TODO.edit;
+    if ($TODO.on.nav) {
+      $TODO.on.nav.end();
     }
     a.one("blur", end);
   }
 
-  $Clearly.edit = new $Clearly.Mode("edit");
-  $Clearly.edit.start = start;
-  $Clearly.edit.end = function () {
-    $Clearly.active.blur();
+  $TODO.edit = new $TODO.Mode("edit");
+  $TODO.edit.start = start;
+  $TODO.edit.end = function () {
+    $TODO.active.blur();
   };
 
-  $Clearly.edit.bind({ ctrl: false, code: "27" }, function (event) {
-    $Clearly.active.blur();
-    $Clearly.save();
+  $TODO.edit.bind({ ctrl: false, code: "27" }, function (event) {
+    $TODO.active.blur();
+    $TODO.save();
   });
 
-  $Clearly.edit.bind({ shift: false, code: "13" }, function (event) {
-    if ($Clearly.active.is("p, li, blockquote, h1, h2, h3, h4, h5, h6")) {
+  $TODO.edit.bind({ shift: false, code: "13" }, function (event) {
+    if ($TODO.active.is("p, li, blockquote, h1, h2, h3, h4, h5, h6")) {
       var sel = window.getSelection();
       var range = sel.getRangeAt(0);
-      if (sel.isCollapsed && $Clearly.active.contents().length) {
-        range.setEndAfter($Clearly.active.contents().last()[0]);
+      if (sel.isCollapsed && $TODO.active.contents().length) {
+        range.setEndAfter($TODO.active.contents().last()[0]);
       }
       var fragment = $(range.extractContents());
 
-      var left_empty = $Clearly.active.text().length == 0;
+      var left_empty = $TODO.active.text().length == 0;
       var right_empty = fragment.text().length == 0;
 
       if (left_empty && right_empty) {
         // do nothing
       } else if (left_empty) {
-        $Clearly.active.text("dummy");
-        $Clearly.edit.end();
-        $Clearly.smartNew();
-        $Clearly.active.html(fragment);
-        $Clearly.nav.up();
-        $Clearly.active.text("");
-        $Clearly.edit.start();
+        $TODO.active.text("dummy");
+        $TODO.edit.end();
+        $TODO.smartNew();
+        $TODO.active.html(fragment);
+        $TODO.nav.up();
+        $TODO.active.text("");
+        $TODO.edit.start();
       } else if (right_empty) {
-        $Clearly.edit.end();
-        $Clearly.smartNew();
-        $Clearly.edit.start();
+        $TODO.edit.end();
+        $TODO.smartNew();
+        $TODO.edit.start();
       } else {
-        $Clearly.edit.end();
-        $Clearly.smartNew();
-        $Clearly.active.html(fragment);
-        $Clearly.edit.start();
+        $TODO.edit.end();
+        $TODO.smartNew();
+        $TODO.active.html(fragment);
+        $TODO.edit.start();
       }
       event.preventDefault();
       return false;
@@ -688,7 +688,7 @@ $Clearly.smartNew = function () {
       meta: false,
       code: code,
     };
-    $Clearly.edit.bind(state, func);
+    $TODO.edit.bind(state, func);
   }
 
   var removeFormat = function (event) {
@@ -696,7 +696,7 @@ $Clearly.smartNew = function () {
     document.execCommand("unlink", false, null);
     event.preventDefault();
   };
-  $Clearly.edit.bind(
+  $TODO.edit.bind(
     {
       ctrl: true, // shift: undefined
       alt: false,
@@ -751,7 +751,7 @@ $Clearly.smartNew = function () {
   bind("69", function (event) {
     // e
     var url = prompt("URL");
-    $Clearly.edit.start();
+    $TODO.edit.start();
     //console.log(url);
     document.execCommand("createLink", false, url);
     event.preventDefault();
@@ -832,27 +832,27 @@ $Clearly.smartNew = function () {
 // Navigator
 
 (function () {
-  $Clearly.nav = new $Clearly.Mode("nav");
+  $TODO.nav = new $TODO.Mode("nav");
 
-  $Clearly.nav.hide = function (state) {
+  $TODO.nav.hide = function (state) {
     if (state === undefined) {
-      $Clearly.active.toggleClass("compact");
+      $TODO.active.toggleClass("compact");
     } else if (state) {
-      $Clearly.active.addClass("compact");
+      $TODO.active.addClass("compact");
     } else {
-      $Clearly.active.removeClass("compact");
+      $TODO.active.removeClass("compact");
     }
-    setTimeout("$Clearly.active.scrollShow()", 300);
+    setTimeout("$TODO.active.scrollShow()", 300);
   };
 
-  $Clearly.nav.down = function () {
-    $Clearly.active.next($Clearly.selector).activate().scrollShow();
+  $TODO.nav.down = function () {
+    $TODO.active.next($TODO.selector).activate().scrollShow();
   };
 
-  $Clearly.nav.walkDown = function () {
-    var a = $Clearly.active,
+  $TODO.nav.walkDown = function () {
+    var a = $TODO.active,
       b,
-      nav = $Clearly.selector;
+      nav = $TODO.selector;
     b = a.children(nav).first();
     if (b.length == 0) {
       b = a.next(nav);
@@ -868,14 +868,14 @@ $Clearly.smartNew = function () {
     b.activate().scrollShow();
   };
 
-  $Clearly.nav.up = function () {
-    $Clearly.active.prev($Clearly.selector).activate().scrollShow();
+  $TODO.nav.up = function () {
+    $TODO.active.prev($TODO.selector).activate().scrollShow();
   };
 
-  $Clearly.nav.walkUp = function () {
-    var a = $Clearly.active,
+  $TODO.nav.walkUp = function () {
+    var a = $TODO.active,
       b,
-      nav = $Clearly.selector;
+      nav = $TODO.selector;
     b = a.prev(nav);
     if (b.length == 0) {
       b = a.parent(nav);
@@ -890,18 +890,18 @@ $Clearly.smartNew = function () {
   };
 
   var bind = function (keyname, conversionFunction, creationFunction) {
-    var codes = $Clearly.Keycodes[keyname];
+    var codes = $TODO.Keycodes[keyname];
     var code = codes[0];
 
     for (var i = 0; i < codes.length; ++i) {
       code = codes[i];
 
       if (conversionFunction) {
-        $Clearly.nav.bind({ ctrl: false, code: code }, conversionFunction);
+        $TODO.nav.bind({ ctrl: false, code: code }, conversionFunction);
       }
 
       if (creationFunction) {
-        $Clearly.nav.bind({ ctrl: true, code: code }, creationFunction);
+        $TODO.nav.bind({ ctrl: true, code: code }, creationFunction);
       }
     }
   };
@@ -909,11 +909,11 @@ $Clearly.smartNew = function () {
   var makeTagCreator = function (tag) {
     return function (event) {
       if (event.shiftKey) {
-        $Clearly.active.before(tag).prev().activate().scrollShow();
+        $TODO.active.before(tag).prev().activate().scrollShow();
       } else {
-        $Clearly.active.after(tag).next().activate().scrollShow();
+        $TODO.active.after(tag).next().activate().scrollShow();
       }
-      $Clearly.edit.start();
+      $TODO.edit.start();
       event.preventDefault();
     };
   };
@@ -921,7 +921,7 @@ $Clearly.smartNew = function () {
   var makeNestedTagCreator = function (tags) {
     return function (event) {
       if (event.shiftKey) {
-        $Clearly.active
+        $TODO.active
           .before(tags)
           .prev()
           .scrollShow()
@@ -929,7 +929,7 @@ $Clearly.smartNew = function () {
           .first()
           .activate();
       } else {
-        $Clearly.active
+        $TODO.active
           .after(tags)
           .next()
           .scrollShow()
@@ -937,7 +937,7 @@ $Clearly.smartNew = function () {
           .first()
           .activate();
       }
-      $Clearly.edit.start();
+      $TODO.edit.start();
       event.preventDefault();
     };
 
@@ -949,13 +949,13 @@ $Clearly.smartNew = function () {
 
   var makeTagConverter = function (tag) {
     return function (event) {
-      $Clearly.changeTag(tag);
-      $Clearly.save();
+      $TODO.changeTag(tag);
+      $TODO.save();
       event.preventDefault();
     };
   };
 
-  // TODO: This function should be integrated with $Clearly.changeTag (possibly even into jquery)
+  // TODO: This function should be integrated with $TODO.changeTag (possibly even into jquery)
   function change_tag(a, tag) {
     a.wrapInner(tag);
     var b = a.children().first();
@@ -974,19 +974,19 @@ $Clearly.smartNew = function () {
     var converter = makeTagConverter(tag);
 
     var textConverter = function (event) {
-      if ($Clearly.active.is("h1, h2, h3, h4, h5, h6, p, blockquote, pre")) {
+      if ($TODO.active.is("h1, h2, h3, h4, h5, h6, p, blockquote, pre")) {
         converter(event);
         return;
-      } else if ($Clearly.active.is("li")) {
-        change_tag($Clearly.active.parent(), "<section></section>");
-        $Clearly.active
+      } else if ($TODO.active.is("li")) {
+        change_tag($TODO.active.parent(), "<section></section>");
+        $TODO.active
           .siblings()
           .andSelf()
           .each(function (i, e) {
             change_tag($(e), tag);
           });
         $(".active").activate();
-        $Clearly.save();
+        $TODO.save();
       }
       event.preventDefault();
     };
@@ -1005,13 +1005,13 @@ $Clearly.smartNew = function () {
   bind("BACKSLASH", null, makeTagCreator("<hr>"));
 
   var sectionConverter = function (event) {
-    if ($Clearly.active.is("ul, ol")) {
-      $Clearly.changeTag("<section></section>");
-      $Clearly.active.children().each(function (i, e) {
+    if ($TODO.active.is("ul, ol")) {
+      $TODO.changeTag("<section></section>");
+      $TODO.active.children().each(function (i, e) {
         change_tag($(e), "<p></p>");
       });
     }
-    $Clearly.save();
+    $TODO.save();
     event.preventDefault();
   };
 
@@ -1024,21 +1024,21 @@ $Clearly.smartNew = function () {
   var makeListConverter = function (tagName) {
     var tag = "<" + tagName + "></" + tagName + ">";
     return function (event) {
-      if ($Clearly.active.is("section")) {
-        var allowed = $Clearly.active.find(
+      if ($TODO.active.is("section")) {
+        var allowed = $TODO.active.find(
           "h1, h2, h3, h4, h5, h6, p, pre, blockquote, li",
         );
-        $Clearly.changeTag(tag);
-        $Clearly.active.empty().append(allowed);
-        $Clearly.active.children().each(function (i, e) {
+        $TODO.changeTag(tag);
+        $TODO.active.empty().append(allowed);
+        $TODO.active.children().each(function (i, e) {
           change_tag($(e), "<li></li>");
         });
-      } else if ($Clearly.active.is("ol, ul")) {
-        $Clearly.changeTag(tag);
-      } else if ($Clearly.active.parent().is("ol, ul")) {
-        change_tag($Clearly.active.parent(), tag);
+      } else if ($TODO.active.is("ol, ul")) {
+        $TODO.changeTag(tag);
+      } else if ($TODO.active.parent().is("ol, ul")) {
+        change_tag($TODO.active.parent(), tag);
       }
-      $Clearly.save();
+      $TODO.save();
       event.preventDefault();
     };
   };
@@ -1057,14 +1057,14 @@ $Clearly.smartNew = function () {
   bind(
     "SINGLE QUOTE",
     function (event) {
-      var a = $Clearly.active;
+      var a = $TODO.active;
       if (event.shiftKey) {
         a.html(a.text());
       } else {
         a.text(a.html());
       }
       event.preventDefault();
-      $Clearly.save();
+      $TODO.save();
     },
     null,
   );
@@ -1072,130 +1072,114 @@ $Clearly.smartNew = function () {
   // END element rules
   var del = function (event) {
     // del
-    $Clearly.deleteActive(!event.shiftKey);
-    $Clearly.save();
+    $TODO.deleteActive(!event.shiftKey);
+    $TODO.save();
     event.preventDefault();
   };
 
   var insert = function (event) {
     // insert
     if (event.shiftKey) {
-      $Clearly.active.before($Clearly.killring.pop());
+      $TODO.active.before($TODO.killring.pop());
     } else {
-      $Clearly.active.after($Clearly.killring.pop());
+      $TODO.active.after($TODO.killring.pop());
     }
-    $Clearly.save();
+    $TODO.save();
     event.preventDefault();
   };
 
-  $Clearly.nav.bind({ code: "46" }, del); // everybody besides mac
-  $Clearly.nav.bind({ ctrl: false, code: "8" }, del); // mac
+  $TODO.nav.bind({ code: "46" }, del); // everybody besides mac
+  $TODO.nav.bind({ ctrl: false, code: "8" }, del); // mac
 
-  $Clearly.nav.bind({ code: "45" }, insert); // everybody besides mac
-  $Clearly.nav.bind({ ctrl: true, code: "8" }, insert); // mac
+  $TODO.nav.bind({ code: "45" }, insert); // everybody besides mac
+  $TODO.nav.bind({ ctrl: true, code: "8" }, insert); // mac
 
-  $Clearly.nav.bind({ code: "72" }, function (event) {
+  $TODO.nav.bind({ code: "72" }, function (event) {
     // h
-    $Clearly.nav.hide();
-    $Clearly.save();
+    $TODO.nav.hide();
+    $TODO.save();
     event.preventDefault();
   });
 
-  $Clearly.nav.bind(
-    { ctrl: true, code: $Clearly.Keycodes["S"] },
-    function (event) {
-      // Ctrl + s
+  $TODO.nav.bind({ ctrl: true, code: $TODO.Keycodes["S"] }, function (event) {
+    // Ctrl + s
 
-      $Clearly.save();
-      localStorage[location.pathname + "~"] = localStorage[location.pathname];
-      event.preventDefault();
-    },
-  );
+    $TODO.save();
+    localStorage[location.pathname + "~"] = localStorage[location.pathname];
+    event.preventDefault();
+  });
 
-  $Clearly.nav.bind(
-    { ctrl: true, code: $Clearly.Keycodes["R"] },
-    function (event) {
-      // Ctrl + r
+  $TODO.nav.bind({ ctrl: true, code: $TODO.Keycodes["R"] }, function (event) {
+    // Ctrl + r
 
-      $Clearly.save();
+    $TODO.save();
 
-      var backup_name = location.pathname + "~",
-        current_name = location.pathname;
+    var backup_name = location.pathname + "~",
+      current_name = location.pathname;
 
-      var backup = localStorage.getItem(backup_name),
-        current = localStorage.getItem(current_name);
+    var backup = localStorage.getItem(backup_name),
+      current = localStorage.getItem(current_name);
 
-      if (event.shiftKey) {
-        localStorage.removeItem(backup_name);
-        backup = null;
-      } else {
-        localStorage.setItem(backup_name, current);
-      }
+    if (event.shiftKey) {
+      localStorage.removeItem(backup_name);
+      backup = null;
+    } else {
+      localStorage.setItem(backup_name, current);
+    }
 
-      if (backup) {
-        localStorage.setItem(current_name, backup);
-      } else {
-        localStorage.removeItem(current_name);
-      }
+    if (backup) {
+      localStorage.setItem(current_name, backup);
+    } else {
+      localStorage.removeItem(current_name);
+    }
 
-      if (event.shiftKey) {
-        window.location.reload();
-      } else {
-        $Clearly.load();
-      }
+    if (event.shiftKey) {
+      window.location.reload();
+    } else {
+      $TODO.load();
+    }
 
-      event.preventDefault();
-    },
-  );
+    event.preventDefault();
+  });
 
-  $Clearly.nav.bind({ ctrl: true, shift: true, code: "37" }, function (event) {
+  $TODO.nav.bind({ ctrl: true, shift: true, code: "37" }, function (event) {
     // left
-    $Clearly.removeSection();
-    $Clearly.save();
+    $TODO.removeSection();
+    $TODO.save();
     event.preventDefault();
   });
 
-  $Clearly.nav.bind({ ctrl: true, shift: true, code: "39" }, function (event) {
+  $TODO.nav.bind({ ctrl: true, shift: true, code: "39" }, function (event) {
     // right
-    $Clearly.makeSection();
-    $Clearly.save();
+    $TODO.makeSection();
+    $TODO.save();
     event.preventDefault();
   });
 
-  $Clearly.nav.bind(
-    { ctrl: false, shift: false, code: "37" },
-    function (event) {
-      // left
-      $Clearly.active.parent($Clearly.selector).activate().scrollShow();
-      event.preventDefault();
-    },
-  );
-
-  $Clearly.nav.bind(
-    { ctrl: false, shift: false, code: "39" },
-    function (event) {
-      // right
-      $Clearly.active
-        .children($Clearly.selector)
-        .first()
-        .activate()
-        .scrollShow();
-      event.preventDefault();
-    },
-  );
-
-  $Clearly.nav.bind({ ctrl: true, code: "35" }, function (event) {
-    $("body").children($Clearly.selector).last().activate().scrollShow();
+  $TODO.nav.bind({ ctrl: false, shift: false, code: "37" }, function (event) {
+    // left
+    $TODO.active.parent($TODO.selector).activate().scrollShow();
     event.preventDefault();
   });
 
-  $Clearly.nav.bind({ ctrl: true, code: "36" }, function (event) {
-    $("body").children($Clearly.selector).first().activate().scrollShow();
+  $TODO.nav.bind({ ctrl: false, shift: false, code: "39" }, function (event) {
+    // right
+    $TODO.active.children($TODO.selector).first().activate().scrollShow();
     event.preventDefault();
   });
-  $Clearly.nav.bind({ ctrl: false, code: "35" }, function (event) {
-    $Clearly.active
-      .siblings($Clearly.selector)
+
+  $TODO.nav.bind({ ctrl: true, code: "35" }, function (event) {
+    $("body").children($TODO.selector).last().activate().scrollShow();
+    event.preventDefault();
+  });
+
+  $TODO.nav.bind({ ctrl: true, code: "36" }, function (event) {
+    $("body").children($TODO.selector).first().activate().scrollShow();
+    event.preventDefault();
+  });
+  $TODO.nav.bind({ ctrl: false, code: "35" }, function (event) {
+    $TODO.active
+      .siblings($TODO.selector)
       .andSelf()
       .last()
       .activate()
@@ -1203,9 +1187,9 @@ $Clearly.smartNew = function () {
     event.preventDefault();
   });
 
-  $Clearly.nav.bind({ ctrl: false, code: "36" }, function (event) {
-    $Clearly.active
-      .siblings($Clearly.selector)
+  $TODO.nav.bind({ ctrl: false, code: "36" }, function (event) {
+    $TODO.active
+      .siblings($TODO.selector)
       .andSelf()
       .first()
       .activate()
@@ -1213,53 +1197,53 @@ $Clearly.smartNew = function () {
     event.preventDefault();
   });
 
-  $Clearly.nav.bind({ shift: false, code: "38" }, function (event) {
+  $TODO.nav.bind({ shift: false, code: "38" }, function (event) {
     // up
     if (event.ctrlKey) {
-      $Clearly.nav.walkUp();
+      $TODO.nav.walkUp();
     } else {
-      $Clearly.nav.up();
+      $TODO.nav.up();
     }
     event.preventDefault();
   });
 
-  $Clearly.nav.bind({ shift: false, code: "40" }, function (event) {
+  $TODO.nav.bind({ shift: false, code: "40" }, function (event) {
     // down
     if (event.ctrlKey) {
-      $Clearly.nav.walkDown();
+      $TODO.nav.walkDown();
     } else {
-      $Clearly.nav.down();
+      $TODO.nav.down();
     }
     event.preventDefault();
   });
 
-  $Clearly.nav.bind({ shift: false, code: "13" }, function (event) {
+  $TODO.nav.bind({ shift: false, code: "13" }, function (event) {
     // enter
     if (event.ctrlKey) {
-      $Clearly.smartNew();
+      $TODO.smartNew();
     }
-    $Clearly.edit.start();
+    $TODO.edit.start();
     event.preventDefault();
   });
 })();
 
 // # Click handling
 $(function () {
-  $(document).on("click", $Clearly.selector, function (event) {
+  $(document).on("click", $TODO.selector, function (event) {
     // 1. Click inside edited element -> move the cursor
     if ($(this).closest("[contenteditable=true]").length) {
       return false;
     }
 
     // 2. Clicked on clickable element (link/button) -> make default action
-    if ($(event.target).is($Clearly.inhibitSelector)) {
+    if ($(event.target).is($TODO.inhibitSelector)) {
       event.stopPropagation();
       return true;
     }
 
     // 3. Clicked inside active element -> turn on edit mode
     if ($(this).is(".active")) {
-      $Clearly.edit.start();
+      $TODO.edit.start();
       return false;
     }
 
@@ -1270,12 +1254,12 @@ $(function () {
 });
 
 (function () {
-  $Clearly.swap = new $Clearly.Mode("swap");
+  $TODO.swap = new $TODO.Mode("swap");
 
   var swap = function (forward, inside) {
-    var a = $Clearly.active,
+    var a = $TODO.active,
       b,
-      s = $Clearly.selector;
+      s = $TODO.selector;
 
     b = forward ? a.next(s) : a.prev(s);
 
@@ -1284,8 +1268,8 @@ $(function () {
         // Stepping out
         b = a.parent(s);
         if (a.is("li")) {
-          $Clearly.changeTag("<p></p>");
-          a = $Clearly.active;
+          $TODO.changeTag("<p></p>");
+          a = $TODO.active;
         }
       } else if (b.is("section")) {
         // Entering section
@@ -1298,7 +1282,7 @@ $(function () {
 
         if (a.is("p")) {
           forward ? b.prepend(a) : b.append(a);
-          $Clearly.changeTag("<li></li>");
+          $TODO.changeTag("<li></li>");
           return;
         }
       }
@@ -1307,34 +1291,34 @@ $(function () {
     forward ? b.after(a) : b.before(a);
   };
 
-  $Clearly.swap.down = function (inside) {
+  $TODO.swap.down = function (inside) {
     swap(true, inside);
   };
 
-  $Clearly.swap.up = function (inside) {
+  $TODO.swap.up = function (inside) {
     swap(false, inside);
   };
 
-  $Clearly.nav.bind({ shift: true, code: "38" }, function (event) {
-    $Clearly.swap.up(event.ctrlKey);
-    $Clearly.active.activate().scrollShow();
-    $Clearly.save();
+  $TODO.nav.bind({ shift: true, code: "38" }, function (event) {
+    $TODO.swap.up(event.ctrlKey);
+    $TODO.active.activate().scrollShow();
+    $TODO.save();
     event.preventDefault();
   });
 
-  $Clearly.nav.bind({ shift: true, code: "40" }, function (event) {
-    $Clearly.swap.down(event.ctrlKey);
-    $Clearly.active.activate().scrollShow();
-    $Clearly.save();
+  $TODO.nav.bind({ shift: true, code: "40" }, function (event) {
+    $TODO.swap.down(event.ctrlKey);
+    $TODO.active.activate().scrollShow();
+    $TODO.save();
     event.preventDefault();
   });
 })();
 
 (function () {
-  $Clearly.todo = new $Clearly.Mode("todo");
-  $Clearly.todo.states = ["todo", "working", "done", "cancelled"];
+  $TODO.todo = new $TODO.Mode("todo");
+  $TODO.todo.states = ["todo", "working", "done", "cancelled"];
 
-  $Clearly.todo.getStates = function (elem) {
+  $TODO.todo.getStates = function (elem) {
     var a = elem.closest("[data-todo-states]");
     if (a.length) {
       return a.attr("data-todo-states").split(" ");
@@ -1342,15 +1326,15 @@ $(function () {
     return this.states;
   };
 
-  $Clearly.todo.setStates = function (s) {
+  $TODO.todo.setStates = function (s) {
     if (s) {
-      $Clearly.active.attr("data-todo-states", s);
+      $TODO.active.attr("data-todo-states", s);
     } else {
-      $Clearly.active.removeAttr("data-todo-states");
+      $TODO.active.removeAttr("data-todo-states");
     }
   };
 
-  $Clearly.todo.isTask = function (elem) {
+  $TODO.todo.isTask = function (elem) {
     var a = elem.closest("[data-todo-states]");
     if (a.length) return true;
     var s = this.getStates(elem);
@@ -1362,8 +1346,8 @@ $(function () {
     return false;
   };
 
-  $Clearly.todo.first = function () {
-    var a = $Clearly.active;
+  $TODO.todo.first = function () {
+    var a = $TODO.active;
     var s = this.getStates(a);
     for (var i = 0; i < s.length; ++i) {
       if (a.is("." + s[i])) {
@@ -1376,9 +1360,9 @@ $(function () {
     a.addClass(s[0]);
   };
 
-  $Clearly.todo.toggle = function (forward) {
+  $TODO.todo.toggle = function (forward) {
     //console.log('toggle with', forward);
-    var a = $Clearly.active;
+    var a = $TODO.active;
     var s = this.getStates(a);
     for (var i = 0; i < s.length; ++i) {
       if (a.is("." + s[i])) {
@@ -1402,16 +1386,16 @@ $(function () {
   };
 
   var tab_handler = function (event) {
-    $Clearly.todo.toggle(!event.shiftKey);
-    $Clearly.save();
+    $TODO.todo.toggle(!event.shiftKey);
+    $TODO.save();
     event.preventDefault();
   };
 
   var tab_keydesc = { ctrl: false, alt: false, meta: false, code: "9" };
 
-  $Clearly.todo.bind(tab_keydesc, tab_handler);
+  $TODO.todo.bind(tab_keydesc, tab_handler);
 })();
 
-$Clearly.nav.start();
-$Clearly.swap.start();
-$Clearly.todo.start();
+$TODO.nav.start();
+$TODO.swap.start();
+$TODO.todo.start();
