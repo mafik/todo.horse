@@ -1,5 +1,4 @@
-todo.horse
-=======
+![todo.horse Free as in Freedom](https://github.com/mafik/todo.horse/blob/main/thumbnail.webp?raw=true)
 
 todo.horse is a web-based *hierarchical text editor* (similar to [Org Mode](https://orgmode.org/)). You can visit it at http://todo.horse/ .
 
