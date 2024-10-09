@@ -52,6 +52,24 @@
     })();
 
   </script>
+  <script>
+    window.addEventListener(
+      "message",
+      (event) => {
+        if (event.origin !== "https://clearly.pl") return;
+        console.log('received', event.data);
+        if (event.data.type === "import") {
+          let contents = JSON.parse(event.data.json);
+          console.log('importing', contents);
+          for (let [key, value] of Object.entries(contents)) {
+            localStorage[key] = value;
+          }
+          console.log('Imported successfully');
+        }
+      },
+      false,
+    );
+  </script>
 </head>
 
 <body>
