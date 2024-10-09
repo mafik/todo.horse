@@ -61,10 +61,12 @@
         if (event.data.type === "import") {
           let contents = JSON.parse(event.data.json);
           console.log('importing', contents);
-          for (let [key, value] of Object.entries(contents)) {
-            localStorage[key] = value;
-          }
-          console.log('Imported successfully');
+          document.requestStorageAccess({all: true}).then((handle) => {
+            for (let [key, value] of Object.entries(contents)) {
+              handle.localStorage[key] = value;
+            }
+            console.log('Imported successfully');
+          });
         }
       },
       false,
